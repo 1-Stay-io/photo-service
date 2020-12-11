@@ -9,17 +9,18 @@ CREATE TABLE stayio.listings (
   listingDescription VARCHAR(1000),
   listingLocation VARCHAR (100),
   listingStars REAL,
-  listingNumReviews INT,
-  photos TEXT[]
+  listingNumReviews INT
+  -- photos TEXT[]
 );
 
--- CREATE TABLE stayio.photos (
---   photoId INT GENERATED ALWAYS AS IDENTITY NOT NULL PRIMARY KEY,
---   listingId INT NOT NULL ,
---   -- REFERENCES listing.listingId,
---   photoDescription VARCHAR (250),
---   photoUrl VARCHAR(250) NOT NULL
--- );
+DROP TABLE IF EXISTS stayio.photos;
+CREATE TABLE stayio.photos (
+  photoId INT GENERATED ALWAYS AS IDENTITY NOT NULL PRIMARY KEY,
+  listingId INT NOT NULL ,
+  -- REFERENCES listing.listingId,
+  photoDescription VARCHAR (250),
+  photoUrl VARCHAR(250) NOT NULL
+);
 
 DROP TABLE IF EXISTS stayio.users;
 CREATE TABLE stayio.users (

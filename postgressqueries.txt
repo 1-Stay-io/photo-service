@@ -1,6 +1,16 @@
+-----find listing with photos-----
+explain analyze select * from stayio.listings inner join stayio.photos on stayio.listings.listingId = stayio.photos.listingId where stayio.listings.listingId = 9678099;
+
+----find a users userLists -----
 explain analyze select * from stayio.users u inner join stayio.userLists l on u.userId = l.userId where u.userId  = 9572;
 
-select listing from stayio.listings inner join stayio.photos on stayio.listings.listingId = stayio.photos.listingId where stayio.listings.listingId = 9;
+-----find fav list with listings----
+explain analyze select * from stayio.users u inner join stayio.userLists l on u.userId = l.userId stayio.userLists inner join stayio.favListings f on l.listId = f.listId where u.userId  = 9;
+
+
+
+
+select * from stayio.listings inner join stayio.photos on stayio.listings.listingId = stayio.photos.listingId where stayio.listings.listingId = 9;
 
 explain analyze select * from stayio.listings inner join stayio.photos on listings.listingId = photos.listingId where listings.listingId = 6243822;
 
@@ -12,3 +22,9 @@ select * from stayio.users u inner join stayio.userLists l on where u.userId  = 
 select * from stayio.userLists where userId = 1938;
 
 
+explain analyze select * from stayio.userLists l inner join stayio.favListings f on (l.listId = f.listId) where l.listId = 2376;
+
+-----to create indexes-----
+CREATE INDEX title_idx on table(title);
+
+CREATE INDEX listingId_idx ON stayio.photos(listingId);

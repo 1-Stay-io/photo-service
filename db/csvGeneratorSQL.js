@@ -7,10 +7,32 @@ const milThousand = require('./pregenerated/milThousand');
 const writer = csvWriter();
 
 //helper functions----------------------------------------------
+let photoListing = 0;
+//n = numer of listings (10M)
+getListingForPhoto = () => {
+  if (photoListing > 9999999) {
+    photoListing = 1;
+  } else {
+    photoListing += 1;
+  }
+  return photoListing;
+}
+
+let favListNum = 0;
+getFavForList = () => {
+  if (favListNum > 9999999) {
+    favListNum = 1;
+  } else {
+    favListNum += 1;
+  }
+  return favListNum;
+}
+
+
 let lastIndex = 0;
 randNumTenMil = () => {
   if (lastIndex >= 999999) {
-    lastIndex = randInt(10);
+    lastIndex = randInt(100);
   }
   lastIndex += 1;
   return milTenMil[lastIndex];
@@ -19,7 +41,7 @@ randNumTenMil = () => {
 let thouIndex = 0;
 randNumThousand = () => {
   if (thouIndex >= 999999) {
-    thouIndex = randInt(10);
+    thouIndex = randInt(100);
   }
   thouIndex += 1;
   return milThousand[thouIndex];
@@ -41,7 +63,7 @@ randArrayOfListings = () => {
 
 randArrayOfPhotos = () => {
   let result = [];
-  for (var i = 0; i < randInt(10); i++) {
+  for (var i = 0; i < randInt(20); i++) {
     result.push(photoGenerator());
   }
   return result;
@@ -59,19 +81,19 @@ createListing = () => {
     listingLocation    : `${faker.address.city()}, ${faker.address.stateAbbr()}`,
     listingStars       : randNumThousand() / 200,
     listingNumReviews  : randNumThousand(),
-    photos : `{${randArrayOfPhotos()}}`
+    // photos : `{${randArrayOfPhotos()}}`
   };
   return listing;
 };
 
-// createPhoto = () => {
-//   let photo = {
-//     listingId        : randNumTenMil(),
-//     photoDescription : faker.lorem.words(2),
-//     photoUrl         : photoGenerator(),
-//   };
-//   return photo;
-// };
+createPhoto = () => {
+  let photo = {
+    listingId: getListingForPhoto(),
+    photoDescription : faker.lorem.words(2),
+    photoUrl         : photoGenerator(),
+  };
+  return photo;
+};
 
 createUser = () => {
   let user = {
@@ -82,7 +104,7 @@ createUser = () => {
 
 createUserList = () => {
   let userList = {
-    userId   : randNumTenMil(),
+    userId   : Math.floor(randNumTenMil() / 10),
     listName : faker.lorem.word()
   };
   return userList;
@@ -90,8 +112,7 @@ createUserList = () => {
 
 createFavListings = () => {
   let favListing = {
-    // favid     : 0,
-    listId    : randNumTenMil(),
+    listId    : getFavForList(),
     listingId : randNumTenMil()
   };
   return favListing;
@@ -133,17 +154,17 @@ dataGen(1000000, 'usersSQL', createUser, () => {
   console.timeEnd('usersSQL');
 });
 
-// dataGen(100000000, 'photosSQL', createPhoto, () => {
-//   writer.end();
-//   console.timeEnd('photosSQL');
-// });
+dataGen(150000000, 'photosSQL', createPhoto, () => {
+  writer.end();
+  console.timeEnd('photosSQL');
+});
 
-dataGen(3000000, 'userListsSQL', createUserList, () => {
+dataGen(10000000, 'userListsSQL', createUserList, () => {
   writer.end();
   console.timeEnd('userListsSQL');
 });
 
-dataGen(10000000, 'favListingsSQL', createFavListings, () => {
+dataGen(30000000, 'favListingsSQL', createFavListings, () => {
   writer.end();
   console.timeEnd('favListingsSQL');
 });
