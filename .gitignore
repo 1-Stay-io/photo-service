@@ -34,6 +34,7 @@ photoCarousel.pem
 
 db/pregenerated/
 
-db/arango/csv/
+db/arango/arangoJSON/
+db/arango/csvOrJSON/
 
 newrelic.js

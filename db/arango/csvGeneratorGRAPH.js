@@ -1,8 +1,8 @@
 const fs = require('fs');
 const csvWriter = require('csv-write-stream');
 const faker = require('faker');
-const milTenMil = require('./pregenerated/milTenMil');
-const milThousand = require('./pregenerated/milThousand');
+const milTenMil = require('../pregenerated/milTenMil');
+const milThousand = require('../pregenerated/milThousand');
 
 const writer = csvWriter();
 
@@ -132,7 +132,7 @@ createContainsEdge = () => {
 const dataGen = (i, name, createFunc, cb) => {
   console.time(name);
   const writer = csvWriter();
-  writer.pipe(fs.createWriteStream(__dirname + `/csv/graph/${name}.csv`));
+  writer.pipe(fs.createWriteStream(__dirname + `/csvOrJSON/${name}.csv`));
 
   function write() {
     let ok = true;
