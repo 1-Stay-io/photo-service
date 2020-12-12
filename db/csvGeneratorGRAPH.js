@@ -7,6 +7,28 @@ const milThousand = require('./pregenerated/milThousand');
 const writer = csvWriter();
 
 //helper functions----------------------------------------------
+
+let listForFav = 0;
+getFavForList = () => {
+  if (listForFav > 9999999) {
+    listForFav = 1;
+  } else {
+    listForFav += 1;
+  }
+  return listForFav;
+}
+
+let userForList = 0;
+getUserForList = () => {
+  if (userForList > 999999) {
+    userForList = 1;
+  } else {
+    userForList += 1;
+  }
+  return userForList;
+}
+
+
 let lastIndex = 0;
 randNumTenMil = () => {
   if (lastIndex >= 1000000) {
@@ -41,7 +63,7 @@ randomNumBetween = (min, max) => Math.floor(Math.random() * (max - min) + min);
 
 randArrayOfPhotos = () => {
   let result = [];
-  for (var i = 0; i < randInt(10); i++) {
+  for (var i = 0; i < randInt(20); i++) {
     result.push(photoGenerator());
   }
   return result;
@@ -93,7 +115,7 @@ createFavList = () => {
 
 createOwnsEdge = () => {
   let ownsEdge = {
-    _from : 'user/' + randInt(1000000),
+    _from : 'user/' + getUserForList(),
     _to   : 'favList/' + randInt(3000000)
   };
   return ownsEdge;
@@ -101,7 +123,7 @@ createOwnsEdge = () => {
 
 createContainsEdge = () => {
   let containsEdge = {
-    _from : 'favList/' + randInt(3000000),
+    _from : 'favList/' + getFavForList(),
     _to   : 'listing/' + randInt(10000000)
   };
   return containsEdge;
@@ -153,7 +175,7 @@ dataGen(10000000, 'graphFavList', createFavList, () => {
   console.timeEnd('graphFavList');
 });
 
-dataGen(50000000, 'graphContainsEdge', createContainsEdge, () => {
+dataGen(30000000, 'graphContainsEdge', createContainsEdge, () => {
   writer.end();
   console.timeEnd('graphContainsEdge');
 });

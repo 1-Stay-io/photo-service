@@ -1,11 +1,18 @@
+API ROUTESS
 -----find listing with photos-----
-explain analyze select * from stayio.listings inner join stayio.photos on stayio.listings.listingId = stayio.photos.listingId where stayio.listings.listingId = 9678099;
+explain analyze select * from stayio.listings inner join stayio.photos on stayio.listings.listingId = stayio.photos.listingId where stayio.listings.listingId = 9678049;
 
 ----find a users userLists -----
-explain analyze select * from stayio.users u inner join stayio.userLists l on u.userId = l.userId where u.userId  = 9572;
+explain analyze select * from stayio.users u inner join stayio.userLists l on u.userId = l.userId where u.userId  = 9512;
 
 -----find fav list with listings----
-explain analyze select * from stayio.users u inner join stayio.userLists l on u.userId = l.userId stayio.userLists inner join stayio.favListings f on l.listId = f.listId where u.userId  = 9;
+explain analyze select * from stayio.users u
+inner join stayio.userLists l on u.userId = l.userId
+inner join stayio.favListings f on l.listId = f.listId
+where u.userId = 9;
+
+
+
 
 
 
@@ -25,6 +32,26 @@ select * from stayio.userLists where userId = 1938;
 explain analyze select * from stayio.userLists l inner join stayio.favListings f on (l.listId = f.listId) where l.listId = 2376;
 
 -----to create indexes-----
-CREATE INDEX title_idx on table(title);
-
 CREATE INDEX listingId_idx ON stayio.photos(listingId);
+
+CREATE INDEX userId_idx ON stayio.userLists(userId);
+
+CREATE INDEX listId_idx ON stayio.favListings(listId);
+
+CREATE INDEX listingId2_idx ON stayio.favListings(listingId);
+
+
+----change column name----
+ALTER TABLE table_name
+RENAME column_name TO new_column_name;
+
+
+---add back foreign keys-----------
+
+ALTER TABLE stayio.photos ADD CONSTRAINT fk_listingId FOREIGN KEY (listingId) REFERENCES stayio.listings(listingId) ON DELETE CASCADE NOT VALID;
+
+ALTER TABLE stayio.userLists ADD CONSTRAINT fk_userId FOREIGN KEY (userId) REFERENCES stayio.users(userId) ON DELETE CASCADE NOT VALID;
+
+ALTER TABLE stayio.favListings ADD CONSTRAINT dk_listId FOREIGN KEY (listId) REFERENCES stayio.userLists(listId) ON DELETE CASCADE NOT VALID;
+
+ALTER TABLE stayio.favListings ADD CONSTRAINT dk_listingId FOREIGN KEY (listingId) REFERENCES stayio.userLists(listingId) ON DELETE CASCADE NOT VALID;
