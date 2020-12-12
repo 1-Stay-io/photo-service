@@ -1,4 +1,4 @@
-// require('newrelic');
+require('newrelic');
 const express = require('express');
 const path = require('path');
 const compression = require('compression');
@@ -13,7 +13,7 @@ app.use('/', express.static(__dirname + 'client/dist'));
 app.use(express.json());
 
 
-app.get('/api/listings/:id', router.get);
+app.get('/api/photo-carousel/:id/photos', router.get);
 
 
 app.listen(port, ()=> {
