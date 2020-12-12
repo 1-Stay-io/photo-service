@@ -36,6 +36,9 @@ db._profileQuery(`
 ........>  RETURN doc`, {}, {colors: false}
 ........> );
 
+ db._query(`FOR home In listings filter home._key == '7' return home`);
+
+ 
 
 db._profileQuery(`
 for doc in favList
