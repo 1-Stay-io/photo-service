@@ -14,7 +14,6 @@ const router = express.Router();
 
 router.get = ('/:id/photos', async (req, res)=> {
   const listingId = req.params.id;
-  console.log(listingId);
   try {
     const listing = await arangoDb.query(aql`
     FOR home IN listings

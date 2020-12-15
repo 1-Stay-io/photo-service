@@ -9,7 +9,7 @@ const port = 2002;
 const app = express();
 
 app.use(compression());
-app.use('/', express.static(__dirname + 'client/dist'));
+app.use('/:id/', express.static(__dirname + '/client/dist'));
 app.use(express.json());
 
 
