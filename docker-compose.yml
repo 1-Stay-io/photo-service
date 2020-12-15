@@ -1,0 +1,7 @@
+version: '3'
+
+services:
+  photo-carousel-service:
+    build: .
+    ports:
+      - '2002:2002'
