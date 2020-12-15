@@ -1,6 +1,16 @@
 const { Database, aql } = require("arangojs");
 
-const arangoDb = new Database();
+const arangoDb = new Database({
+  agentOptions: {
+    maxSockets: 325,
+    keepAlive: true
+  },
+  LoadBalancingStrategy: 'ROUND_ROBIN',
+  QueryOptions: {
+    stream: true,
+  }
+});
+
 arangoDb.useDatabase('stayio');
 arangoDb.useBasicAuth('root', '');
 const listings = arangoDb.collection('listings');

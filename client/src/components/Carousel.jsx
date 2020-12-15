@@ -49,7 +49,7 @@ const Carousel = ({
             </StyledSVG>
           </LeftButton>
         )}
-      <FocusImage className={isChanging && 'changing'} src={carousel.carouselPhotos[carousel.photoIndex].photo} />
+      <FocusImage className={isChanging && 'changing'} src={carousel.carouselPhotos[carousel.photoIndex]} />
       {carousel.photoIndex >= carousel.carouselPhotos.length - 1
         ? null
         : (
@@ -60,7 +60,7 @@ const Carousel = ({
           </RightButton>
         )}
       <PhotoDescription>
-        {carousel.carouselPhotos[carousel.photoIndex].description}
+        {carousel.carouselPhotos[carousel.photoIndex]}
       </PhotoDescription>
     </CarouselModal>
   </CarouselWrapper>
