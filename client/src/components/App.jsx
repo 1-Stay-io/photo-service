@@ -52,8 +52,9 @@ class App extends React.Component {
   loadListingPhotos(id) {
     axios.get(`/api/photo-carousel/${id}/photos`)
       .then((results) => {
+        console.log(results)
         this.setState({
-          carouselPhotos: results.data,
+          carouselPhotos: results.data[0].photos,
           listingName: results.data[0].listingName,
           listingStars: results.data[0].listingStars,
           listingNumReviews: results.data[0].listingNumReviews,
@@ -178,24 +179,24 @@ class App extends React.Component {
   }
 
   checkFavorite() {
-    axios.get('/api/photo-carousel/favorites/1')
-      .then((results) => {
-        let isFavorite = false;
-        const favorites = results.data;
-        for (let i = 0; i < favorites.length; i += 1) {
-          favorites[i].favoriteLists.forEach((fav) => {
-            if (fav === Number(window.location.pathname.split('/')[1])) {
-              isFavorite = true;
-            }
-          });
-        }
-        this.setState({
-          isFavorite,
-        });
-      })
-      .catch((error) => {
-        console.error(error);
-      });
+    // axios.get('/api/photo-carousel/favorites/1')
+    //   .then((results) => {
+    //     let isFavorite = false;
+    //     const favorites = results.data;
+    //     for (let i = 0; i < favorites.length; i += 1) {
+    //       favorites[i].favoriteLists.forEach((fav) => {
+    //         if (fav === Number(window.location.pathname.split('/')[1])) {
+    //           isFavorite = true;
+    //         }
+    //       });
+    //     }
+    //     this.setState({
+    //       isFavorite,
+    //     });
+    //   })
+    //   .catch((error) => {
+    //     console.error(error);
+    //   });
   }
 
   render() {
