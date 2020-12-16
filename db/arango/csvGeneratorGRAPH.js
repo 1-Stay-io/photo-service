@@ -63,7 +63,7 @@ randomNumBetween = (min, max) => Math.floor(Math.random() * (max - min) + min);
 
 randArrayOfPhotos = () => {
   let result = [];
-  for (var i = 0; i < randInt(20); i++) {
+  for (var i = 0; i < randInt(10) + 10; i++) {
     result.push(photoGenerator());
   }
   return result;
@@ -132,7 +132,7 @@ createContainsEdge = () => {
 const dataGen = (i, name, createFunc, cb) => {
   console.time(name);
   const writer = csvWriter();
-  writer.pipe(fs.createWriteStream(__dirname + `/csvOrJSON/${name}.csv`));
+  writer.pipe(fs.createWriteStream(__dirname + `/testCSV/${name}.csv`));
 
   function write() {
     let ok = true;
@@ -155,10 +155,10 @@ const dataGen = (i, name, createFunc, cb) => {
   write();
 };
 
-dataGen(10000000, 'graphListing', createListing, () => {
-  writer.end();
-  console.timeEnd('graphListing');
-});
+// dataGen(10000000, 'graphListing', createListing, () => {
+//   writer.end();
+//   console.timeEnd('graphListing');
+// });
 
 dataGen(1000000, 'graphUser', createUser, () => {
   writer.end();
