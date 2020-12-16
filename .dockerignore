@@ -1,8 +1,8 @@
 package-lock.json
 *csv
-*json
 /db
 /seedData
 .gitignore
 /OLDfiles
+/db/arango
 
